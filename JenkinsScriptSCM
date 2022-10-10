@@ -1,0 +1,39 @@
+pipeline {
+    agent any
+    stages {
+	    stage('Git-Checkout'){
+	        steps{
+	            echo" Checking out from GIT Repo"
+	            git branch: 'main', url: 'https://github.com/adarshgupta400/ScriptedCICDPipeline.git'
+	            }
+	    }
+	    stage('Build'){
+	        steps{
+	            echo" Building the checked out code"
+	            bat 'Build.bat'
+	            
+	        }
+	    }
+	    stage('Unit- Tests'){
+	        steps{
+	            echo"Running the unit test cases. "
+	             bat 'Unit.bat'
+	         }
+	    }
+	    stage('Quality-Gate'){
+	        steps{
+	            echo" Building the checked out code"
+	            bat 'Quality.bat'
+	            
+	        }
+	    }
+	    stage('Deploy'){
+	        steps{
+	            echo" Building the checked out code"
+	            bat 'Deploy.bat'
+	            
+	        }
+	    }
+	
+    }
+}
